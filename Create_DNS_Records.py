@@ -1,25 +1,24 @@
-# Host records must be in this format [host name] IN A [10.0.0.2 onwards]
-# CMP - Computer Server Systems - Jake Madden Python script to accomplish elements from questions 1 and complete question 2.
-# Packages/Libraries#
+#CMP - Computer Server Systems - Jake Madden Python script to accomplish elements from questions 1 and complete question 2.
+#Packages/Libraries#
 import sys
 import os
 import time
-####################
-class CMP(object):
+
+class CMP_5350(object):
     def main_menu(self):
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         print("     Create DNS A records    ")
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        print("1) Manually create DNS records")
+        print("1) Create DNS records")
         print("2) Open DNS zone file")
         print("3) Quit")
-        print(" ")
+        print("\n")
         try:
             option = int(input("Choose your input: "))
         except ValueError:
-            print("###########################################")
-            print("Operation could not succeed, contact network administrator. (✖╭╮✖)", sys.exc_info()[0])
-            print("############################################")
+            print("#################################################################")
+            print("Operation could not succeed, contact network administrator.Error 1", sys.exc_info()[0])
+            print("#################################################################")
             return
         return option
 
@@ -29,53 +28,68 @@ class CMP(object):
             choice = self.main_menu()
             if choice == 1:
                 try:
-                    print("[host name] IN A [10.0.0.2 onwards]")
-                    hostName = input("Please input host name: ")
-                    recType = str(input("Please input record type: "))
-                    ipAddr = input("Please input IP address: ")
-                    print("")
-                    print(hostName, 'IN', recType, ipAddr)
+                    print("\n")
+                    print("[host name] IN [Record Type] [10.0.0.13 onwards]")
+                    print("\n")
+                    host_name = input("Please input host name: ")
+                    print("\n")
+                    print("This option only accepts: [A, CNAME, PTR] records.")
+                    record = ["A", "CNAME", "PTR"]
+                    print("\n")
+                    record_type = str(input("Please select record type: "))
+                    if record_type in record:
+                        print("\n")
+                        print(record_type, "Selected")#needed something to complete the if statement so elif wouldn't put up a fuss.
+                        print("\n")
+                    elif record_type not in record:
+                        print("Whoah Anon! watcha doin!")
+                        print("Unknown record type, exiting....")
+                        time.sleep(2)
+                        return
+                    print("\n")
+                    ip_address = input("Please input IP address: ")
+                    print("\n")
+                    print(host_name, 'IN', record_type, ip_address)
                     print("")
                     time.sleep(3)
-                    print("")
+                    print("\n")
                     print("Writing to DNS Zone file")
-                    print("")
-                    f = open("cheese.db", "a") #A option for appending, This assume the file in question is in the relative directory.
-                    f.write('\n'+hostName + ' ' + 'IN' + ' ' + recType + ' ' + ipAddr)#Bug, for some reason the return carriage[\r] wont work on my linux machine when tested. I'm using the \n to bypass this issue.
+                    print("\n")
+                    f = open("cheese.db", "a") #A option for appending, this line assumes the file in question is in the relative directory since we've not added a greater file path.
+                    f.write('\n'+host_name + ' ' + 'IN' + ' ' + record_type + ' ' + ip_address)#Bug, for some reason the return carriage[\r] wont work on my linux machine when tested. However I've found away to bypass this issue using the newline command instead, \n.
                     f.close()
                 except ValueError:
-                    print("\n----------------------------------------------------------")
-                    print("Operation could not succeed. Error (✖╭╮✖)", sys.exc_info()[0])  # Incase of failure
-                    print("\n----------------------------------------------------------")
+                    print("\n###############################################################")
+                    print("Operation could not succeed, contact network administrator.Error 2", sys.exc_info()[0])#In case of failure, this should give a detailed output of the problem.
+                    print("\n###############################################################")
                     return
             elif choice == 2:
                 redirect = str(input("Confirm you want to proceed to DNS zone file? Yes/No: "))
-                if redirect == 'Yes':
-                    print("")
-                    print("Aye! Aye! Captain, Spinning up warp drives!!")
-                    print("")
+                if redirect == 'Yes' or 'yes' or 'y': #During actual usage i found it tedious to keep writing Yes much lazier to write y.
+                    print("\n")
+                    print("Aye! Aye! Captain, Spinning up warp drives! Prepare for file redirection!")
+                    print("\n")
                     time.sleep(3)
-                    os.system("nano cheese.db")
+                    os.system("nano cheese.db")#Uses the native the os editor, on windows, which this to notepad and file.txt for testing. Probably best to have the python script within the same folder.
                     time.sleep(2)
                     sys.exit(0)
-                elif redirect == 'No':
+                elif redirect == 'No' or 'no' or 'n':
                     return
             elif choice == 3:
                 loop = 0
             else:
-                print("")
+                print("\n")
                 print("Can't help noticing you've entered something other than 1-4, are you intentionally trying to break this script?")
                 time.sleep(2)
                 print("Returning to Main Menu...")
-                time.sleep(5)
-                print("")
-                print("")
-                print("")
-        print("")
-        print("Goodbye Anon!")
+                time.sleep(3)
+                print("\n")
+        print("\n")
+        print("Thank you and goodbye Anon!")
+        print("\n")
         print("#########################################")
         print("Operation succeed. Pass ㋡ " "Error = ", sys.exc_info()[0])
         print("#########################################")
 
-foo = CMP()
+foo = CMP_5350()
 foo.run_main_option()
