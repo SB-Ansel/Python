@@ -1,4 +1,4 @@
-#CMP - Computer Server Systems - Jake Madden Python script to accomplish elements from questions 1 and complete question 2.
+#CMP - Computer Server Systems - Jake Madden
 #Packages/Libraries#
 import sys
 import os
@@ -6,9 +6,9 @@ import time
 
 class CMP_5350(object):
     def main_menu(self):
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}")
         print("     Create DNS A records    ")
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{")
         print("1) Create DNS records")
         print("2) Open DNS zone file")
         print("3) Quit")
@@ -45,9 +45,19 @@ class CMP_5350(object):
                         print("Whoah Anon! watcha doin!")
                         print("Unknown record type, exiting....")
                         time.sleep(2)
-                        return
+                        break
                     print("\n")
                     ip_address = input("Please input IP address: ")
+                    if len(ip_address) < 12:
+                        print("\n")
+                        print(ip_address, "selected")
+                        print("\n")
+                    else:
+                        print("\n")
+                        print("The address you have entered appears to be invalid")
+                        print("\n")
+                        time.sleep(3)
+                        break
                     print("\n")
                     print(host_name, 'IN', record_type, ip_address)
                     print("")
@@ -55,7 +65,7 @@ class CMP_5350(object):
                     print("\n")
                     print("Writing to DNS Zone file")
                     print("\n")
-                    f = open("cheese.db", "a") #A option for appending, this line assumes the file in question is in the relative directory since we've not added a greater file path.
+                    f = open("cheese.db", "a")#A option for appending, this line assumes the file in question is in the relative directory since we've not added a greater file path.
                     f.write('\n'+host_name + ' ' + 'IN' + ' ' + record_type + ' ' + ip_address)#Bug, for some reason the return carriage[\r] wont work on my linux machine when tested. However I've found away to bypass this issue using the newline command instead, \n.
                     f.close()
                 except ValueError:
@@ -65,7 +75,7 @@ class CMP_5350(object):
                     return
             elif choice == 2:
                 redirect = str(input("Confirm you want to proceed to DNS zone file? Yes/No: "))
-                if redirect == 'Yes' or 'yes' or 'y': #During actual usage i found it tedious to keep writing Yes much lazier to write y.
+                if redirect == 'Yes' or 'yes' or 'y':#During actual usage i found it tedious to keep writing Yes much lazier to write y.
                     print("\n")
                     print("Aye! Aye! Captain, Spinning up warp drives! Prepare for file redirection!")
                     print("\n")
@@ -79,10 +89,10 @@ class CMP_5350(object):
                 loop = 0
             else:
                 print("\n")
-                print("Can't help noticing you've entered something other than 1-4, are you intentionally trying to break this script?")
-                time.sleep(2)
+                print("Can't help noticing you've entered something other than 1-3, are you intentionally trying to break this script?")
+                time.sleep(1)
                 print("Returning to Main Menu...")
-                time.sleep(3)
+                time.sleep(2)
                 print("\n")
         print("\n")
         print("Thank you and goodbye Anon!")
