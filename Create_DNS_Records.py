@@ -7,12 +7,12 @@ import time
 class CMP_5350(object):
     def main_menu(self):
         print("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}")
-        print("     Create DNS A records    ")
+        print("      Create DNS records     ")
         print("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{")
         print("1) Create DNS records")
         print("2) Open DNS zone file")
         print("3) Quit")
-        print("\n")
+        #print("\n")
         try:
             option = int(input("Choose your input: "))
         except ValueError:
@@ -28,57 +28,40 @@ class CMP_5350(object):
             choice = self.main_menu()
             if choice == 1:
                 try:
-                    print("\n")
-                    print("[host name] IN [Record Type] [10.0.0.13 onwards]")
-                    print("\n")
+                    print_statements("[host name] IN [Record Type] [10.0.0.13 onwards]")
                     host_name = input("Please input host name: ")
-                    print("\n")
-                    print("This option only accepts: [A, CNAME, PTR] records.")
+                    print_statements("This option only accepts: [A, CNAME, PTR] records.")
                     record = ["A", "CNAME", "PTR"]
-                    print("\n")
                     record_type = str(input("Please select record type: "))
                     if record_type in record:
-                        print("\n")
-                        print(record_type, "Selected")#needed something to complete the if statement so elif wouldn't put up a fuss.
-                        print("\n")
+                        print('\n',  record_type, "Selected")#needed something to complete the if statement so elif wouldn't put up a fuss.
                     elif record_type not in record:
                         print("Whoah Anon! watcha doin!")
                         print("Unknown record type, exiting....")
                         time.sleep(2)
                         break
-                    print("\n")
                     ip_address = input("Please input IP address: ")
                     if len(ip_address) < 12:
-                        print("\n")
-                        print(ip_address, "selected")
-                        print("\n")
+                        print('\n', ip_address, 'selected')
                     else:
-                        print("\n")
-                        print("The address you have entered appears to be invalid")
-                        print("\n")
+                        print_statements("The address you have entered appears to be invalid")
                         time.sleep(3)
                         break
-                    print("\n")
-                    print(host_name, 'IN', record_type, ip_address)
-                    print("")
+                    print('\n', host_name, 'IN', record_type, ip_address)
                     time.sleep(3)
-                    print("\n")
-                    print("Writing to DNS Zone file")
-                    print("\n")
+                    print_statements("Writing to DNS Zone file")
                     f = open("cheese.db", "a")#A option for appending, this line assumes the file in question is in the relative directory since we've not added a greater file path.
-                    f.write('\n'+host_name + ' ' + 'IN' + ' ' + record_type + ' ' + ip_address)#Bug, for some reason the return carriage[\r] wont work on my linux machine when tested. However I've found away to bypass this issue using the newline command instead, \n.
+                    f.write('\n'+host_name+' '+'IN'+' '+record_type+' '+ip_address)#Bug, for some reason the return carriage[\r] wont work on my linux machine when tested. However I've found away to bypass this issue using the newline command instead, \n.
                     f.close()
                 except ValueError:
-                    print("\n###############################################################")
+                    print("##################################################################")
                     print("Operation could not succeed, contact network administrator.Error 2", sys.exc_info()[0])#In case of failure, this should give a detailed output of the problem.
-                    print("\n###############################################################")
+                    print("##################################################################")
                     return
             elif choice == 2:
                 redirect = str(input("Confirm you want to proceed to DNS zone file? Yes/No: "))
                 if redirect == 'Yes' or 'yes' or 'y':#During actual usage i found it tedious to keep writing Yes much lazier to write y.
-                    print("\n")
-                    print("Aye! Aye! Captain, Spinning up warp drives! Prepare for file redirection!")
-                    print("\n")
+                    print_statements("Aye! Aye! Captain, Spinning up warp drives! Prepare for file redirection!")
                     time.sleep(3)
                     os.system("nano cheese.db")#Uses the native the os editor, on windows, which this to notepad and file.txt for testing. Probably best to have the python script within the same folder.
                     time.sleep(2)
@@ -88,18 +71,18 @@ class CMP_5350(object):
             elif choice == 3:
                 loop = 0
             else:
-                print("\n")
-                print("Can't help noticing you've entered something other than 1-3, are you intentionally trying to break this script?")
+                #print(print_statements("Can't help noticing you've entered something other than 1-3, are you intentionally trying to break this script?"))
+                print_statements("Can't help noticing you've entered something other than 1-3, are you intentionally trying to break this script?")
                 time.sleep(1)
-                print("Returning to Main Menu...")
+                print_statements("Returning to Main Menu...")
                 time.sleep(2)
-                print("\n")
-        print("\n")
-        print("Thank you and goodbye Anon!")
-        print("\n")
+        print_statements("Thank you and goodbye Anon!")
         print("#########################################")
         print("Operation succeed. Pass ㋡ " "Error = ", sys.exc_info()[0])
         print("#########################################")
 
+def print_statements(string):
+    print("\n"+string+"\n")
+    #My solution to get rid of those repetitive print("\n") statements
 foo = CMP_5350()
 foo.run_main_option()
