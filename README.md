@@ -1,4 +1,4 @@
-# Python-Script
+# Python_Scripts
 
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Python_logo_and_wordmark.svg/200px-Python_logo_and_wordmark.svg.png "Python 3")
 
